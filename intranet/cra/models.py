@@ -12,13 +12,6 @@ class Employe(models.Model):
         return self.nom + "  " + self.prenom
 
 
-class Mission(models.Model):
-    nomClient = models.CharField(max_length=200)
-    dateDebutMission = models.DateTimeField("date de debut de mission") 
-    dateFinMission = models.DateTimeField("date de fin de mission")
-    client = None
-
-
 class Consultant(Employe):
     missionsEffectues = []
 
@@ -30,5 +23,21 @@ class Client(models.Model):
     adresse = models.CharField(max_length=200)
     emailAdress = models.EmailField("adresse email du client")
 
+    def __str__(self):
+        return self.nom + "  " + self.prenom + " " + self.societe
 
-        
+
+class Mission_terminee(models.Model):
+    dateDebutMission = models.DateTimeField("date de debut de mission")
+    poste = models.CharField(max_length=200)
+    client = models.ForeignKey(Client)
+    dateFinMission = models.DateTimeField("date de fin de mission")
+    def __str__(self):
+        return self.poste + "  " + self.client + "   " + dateDebutMission + "   " + dateFinMission
+
+class Mission_en_cours(models.Model):
+    dateDebutMission = models.DateTimeField("date de debut de mission")
+    poste = models.CharField(max_length=200)
+    client = models.ForeignKey(Client)
+    def __str__(self):
+        return self.poste + "  " + self.client

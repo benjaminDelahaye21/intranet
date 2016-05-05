@@ -1,0 +1,58 @@
+edit models
+
+# --------------
+# Please enter the commit message for your changes. Everything below
+# this paragraph is ignored, and an empty message aborts the commit.
+# Just close the window to accept your message.
+diff --git a/intranet/cra/admin.py b/intranet/cra/admin.py
+index 3e4405e..5eed217 100644
+--- a/intranet/cra/admin.py
++++ b/intranet/cra/admin.py
+@@ -7,3 +7,6 @@ from .models import Employe,Consultant
+ 
+ admin.site.register(Employe)
+ admin.site.register(Consultant)
++admin.site.register(Mission)
++admin.site.register(Client)
++
+diff --git a/intranet/cra/models.py b/intranet/cra/models.py
+index 7fbf205..9972e5b 100644
+--- a/intranet/cra/models.py
++++ b/intranet/cra/models.py
+@@ -1,6 +1,8 @@
+ from django.db import models
+ 
+ # Create your models here.
++
++
+ class Employe(models.Model):
+     nom = models.CharField(max_length=200)
+     prenom = models.CharField(max_length=200)
+@@ -9,22 +11,24 @@ class Employe(models.Model):
+     def __str__(self):
+         return self.nom + "  " + self.prenom
+ 
++
+ class Mission(models.Model):
+     nomClient = models.CharField(max_length=200)
+     dateDebutMission = models.DateTimeField("date de debut de mission") 
+     dateFinMission = models.DateTimeField("date de fin de mission")
++    client = None
++
+ 
+ class Consultant(Employe):
+     missionsEffectues = []
+ 
+-class Mission(models.Model):
+-    date_debut = models.DateField("Date de début de mission")
+-    date_fin = models.DateField("Date de fin de mission")
+-    client = Client
+ 
+-class Client(models.Model):n
++class Client(models.Model):
+     nom = models.CharField(max_length=200)
+     prenom = models.CharField(max_length=200)
+     societe = models.CharField(max_length=200)
++    adresse = models.CharField(max_length=200)
++    emailAdress = models.EmailField("adresse email du client")
++
