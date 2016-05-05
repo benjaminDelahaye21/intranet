@@ -5,3 +5,6 @@ class Employe(models.Model):
     nom = models.CharField(max_length=200)
     prenom = models.CharField(max_length=200)
     date_embauche = models.DateTimeField('date published')
+
+    def __str__(self):
+        return self.nom + "  " + self.prenom
