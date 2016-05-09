@@ -1,0 +1,27 @@
+{% if latest_consultants_list %}
+
+<table style="width:100%" border="1">
+   <thead> 
+    <tr>
+    <th> nom</th>
+    <th> Prénom</th>
+    <th> Date d'embauche</th>
+    </tr>
+    </thead> 
+
+    <tbody> 
+    
+    {% for consultant in latest_consultants_list %}
+    <tr>
+        <td>{{consultant.nom}}</td>
+        <td>{{consultant.prenom}}</td> 
+        <td>{{consultant.date_embauche}}</td>      
+    </tr>    
+    {% endfor %}
+    
+     </tbody> 
+</table>
+
+{% else %}
+    <p>No consultant are available.</p>
+{% endif %}
