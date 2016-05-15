@@ -123,3 +123,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_URL = '/login' # Lien vers la page si l'authentification échoue
+LOGIN_REDIRECT_URL = '/cra/index' # Lien vers la page si l'authentification réussi

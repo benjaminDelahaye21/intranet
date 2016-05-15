@@ -1,8 +1,12 @@
-{% if latest_consultants_list %}
+{% if consultant %}
+<h1> Welcome {{consultant.prenom}} {{consultant.nom}}  </h1>
+{% endif %}
 
+{% if consultant %}
 <table style="width:100%" border="1">
    <thead> 
     <tr>
+    <th> id</th>
     <th> nom</th>
     <th> Prénom</th>
     <th> Date d'embauche</th>
@@ -11,17 +15,38 @@
 
     <tbody> 
     
-    {% for consultant in latest_consultants_list %}
     <tr>
+        <td>{{consultant.pk}}</td>
         <td>{{consultant.nom}}</td>
         <td>{{consultant.prenom}}</td> 
         <td>{{consultant.date_embauche}}</td>      
     </tr>    
-    {% endfor %}
     
      </tbody> 
 </table>
+{% endif %}
 
-{% else %}
-    <p>No consultant are available.</p>
+{% if commercial %}
+<h1>Liste des consutants suivis : </h1>
+<table style="width:100%" border="1">
+   <thead> 
+    <tr>
+    <th> iiiiiiiiiiid</th>
+    <th> nom</th>
+    <th> Prénom</th>
+    <th> Date d'embauche</th>
+    </tr>
+    </thead> 
+ for consultant in {{commercial.liste_consultants}}    {{commercial.liste_consultants}}
+    <tbody>     
+    <tr>
+        <td>{{consultant.pk}}</td>
+        <td>{{consultant.nom}}</td>
+        <td>{{consultant.prenom}}</td> 
+        <td>{{consultant.date_embauche}}</td>      
+    </tr>    
+    
+     </tbody> 
+ endfor 
+</table>
 {% endif %}

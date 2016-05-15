@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
 
 # Create your models here.
 
@@ -6,14 +9,23 @@ from django.db import models
 class Employe(models.Model):
     nom = models.CharField(max_length=200)
     prenom = models.CharField(max_length=200)
-    date_embauche = models.DateTimeField("date d'embauche")
-
+    date_embauche = models.DateField("date d'embauche")
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    class Meta:
+        abstract = True
     def __str__(self):
         return self.nom + "  " + self.prenom
 
 
+
 class Consultant(Employe):
     missionsEffectues = []
+
+
 
 
 class Client(models.Model):
@@ -22,9 +34,21 @@ class Client(models.Model):
     societe = models.CharField(max_length=200)
     adresse = models.CharField(max_length=200)
     emailAdress = models.EmailField("adresse email du client")
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
     def __str__(self):
         return self.nom + "  " + self.prenom + " " + self.societe
 
+class Commercial(Employe):
+    liste_consultants = models.ManyToManyField(Consultant,null=True,blank=True)
+    liste_clients = models.ManyToManyField(Client,null=True,blank=True)
+
+class Commercial2(Employe):
+    liste_consultants = []
+    liste_clients = []
 
 class Mission_terminee(models.Model):
     dateDebutMission = models.DateTimeField("date de debut de mission")
@@ -51,4 +75,3 @@ class Activite(models.Model):
     actitivite_saisie_par_consultant = False
     activite_validee_par_client = False
     consultant = models.ForeignKey(Consultant)
-    client = models.ForeignKey(Client)
