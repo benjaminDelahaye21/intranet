@@ -31,13 +31,13 @@
 <table style="width:100%" border="1">
    <thead> 
     <tr>
-    <th> iiiiiiiiiiid</th>
+    <th> id</th>
     <th> nom</th>
     <th> Prénom</th>
     <th> Date d'embauche</th>
     </tr>
     </thead> 
- for consultant in {{commercial.liste_consultants}}    {{commercial.liste_consultants}}
+{% for consultant in commercial.liste_consultants.all %}
     <tbody>     
     <tr>
         <td>{{consultant.pk}}</td>
@@ -47,6 +47,6 @@
     </tr>    
     
      </tbody> 
- endfor 
+{% endfor %}
 </table>
 {% endif %}

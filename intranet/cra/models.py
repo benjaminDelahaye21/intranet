@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from eventtools.models import BaseEvent, BaseOccurrence
 
 
 
@@ -43,12 +44,10 @@ class Client(models.Model):
         return self.nom + "  " + self.prenom + " " + self.societe
 
 class Commercial(Employe):
-    liste_consultants = models.ManyToManyField(Consultant,null=True,blank=True)
+    liste_consultants = models.ManyToManyField("Consultant", related_name="liste_consultants",null=True,blank=True)
     liste_clients = models.ManyToManyField(Client,null=True,blank=True)
 
-class Commercial2(Employe):
-    liste_consultants = []
-    liste_clients = []
+
 
 class Mission_terminee(models.Model):
     dateDebutMission = models.DateTimeField("date de debut de mission")
@@ -75,3 +74,6 @@ class Activite(models.Model):
     actitivite_saisie_par_consultant = False
     activite_validee_par_client = False
     consultant = models.ForeignKey(Consultant)
+
+    def __init__(self,moi_en_cours):
+        

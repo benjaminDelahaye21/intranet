@@ -19,7 +19,6 @@ def index(request):
         template = loader.get_template('cra/index.html')
         consultant_liste = Consultant.objects.filter(pk=request.user.pk)[0:]
         commercial_liste = Commercial.objects.filter(pk=request.user.pk)[0:]
-        commercial_liste2 = Commercial2.objects.filter(pk=request.user.pk)[0:]
         if consultant_liste :
             consultant = Consultant.objects.filter(pk=request.user.pk)[0]
         else :
@@ -30,14 +29,10 @@ def index(request):
         else:
             commercial = None
 
-        if commercial_liste2 :
-            commercial2 = Commercial2.objects.filter(pk=request.user.pk)[0]
-            print(commercial.liste_consultants)
-        else:
-            commercial = None
+        
         latest_consultants_list = Consultant.objects.order_by('-date_embauche')[:5]
         context = {
-            'latest_consultants_list':latest_consultants_list,'user':request.user,'commercial':commercial,'commercial2':commercial2,'consultant':consultant,
+            'latest_consultants_list':latest_consultants_list,'user':request.user,'commercial':commercial,'consultant':consultant,
         }
         return HttpResponse(template.render(context, request))
     else:
